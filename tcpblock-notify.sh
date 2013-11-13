@@ -30,10 +30,6 @@ do
     message=$(echo $line | cut -d\  -f7-  | cut -d: -f1)
     app=$(echo $message | sed 's/^block connection of //' | sed 's/ to .*//')
     cmd='/usr/local/bin/tcpblock -a \"'$app'\"'
-echo "$message">>/tmp/lakis
-echo "$app">>/tmp/lakis
-echo "$cmd">>/tmp/lakis
-echo "---">>/tmp/lakis
     /usr/local/bin/terminal-notifier -title tcpblock -sound Frog -message "$message" -execute "osascript -e 'do shell script \"$cmd\" with administrator privileges'"
     # $notifier_path -title tcpblock -sound Frog -message "$message" -execute "osascript -e 'do shell script \"$cmd\" with administrator privileges'"
     # check this for escaping http://stackoverflow.com/questions/18535178/trouble-escaping-quotes-in-a-shell-script
