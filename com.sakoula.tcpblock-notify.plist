@@ -1,0 +1,32 @@
+<!--
+# com.sakoula.tcpblock-notify.plist
+#
+# argument: none
+#
+# description:
+#  - plist to start automatically tcpblock_notify.sh
+#  - place it in /Users/XXX/Library/LaunchAgents/com.sakoula.tcpblock-notify.plist to start it automatically on boot
+#  - to launch on demand:
+#     launchctl load com.sakoula.tcpblock-notify.plist
+#     launchctl unload com.sakoula.tcpblock-notify.plist
+#     note: give launchctl from the directory containing the plist
+#
+# logging:
+#  none
+#
+#  psebos@gmail.com
+-->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.sakoula.tcpblock-notify</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>tcpblock-notify.sh</string>
+    </array>
+    <key>KeepAlive</key>
+    <true/>
+</dict>
+</plist>
