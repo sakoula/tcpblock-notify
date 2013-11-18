@@ -6,14 +6,23 @@ adds notification center support to [tcpblock](http://tcpblock.wordpress.com/).
 
 tcpblock-notify adds notification center support to tcpblock application firewall.
 
-You should have tcp block configured with a white list:
-![alt tag](https://raw.github.com/sakoula/tcpblock-notify/master/images/tcpblock_gui.jpg)
-
-It has been tested successfully in Mac OS X 10.8 Lion and Mac OS X 10.9 Mavericks.
+It has been tested successfully in Mac OS X 10.9 Mavericks.
 
 ## Requirements
 
+### terminal notifier
+
 [terminal notifier](https://github.com/alloy/terminal-notifier) is required. You can either install it manually or via [brew](http://brew.sh/) (brew is the preferred way)
+
+### tcpblock configuration
+
+tcpblock should be configured using:
++ Enabled
++ Log blocked connections
++ using "White List"
+
+Check the following screenshot:
+![alt tag](https://raw.github.com/sakoula/tcpblock-notify/master/images/tcpblock_gui.jpg)
 
 ## Install
 
@@ -22,11 +31,17 @@ There are two ways
 ### Install with installer
 
 Download from the
-[releases section](https://github.com/sakoula/tcpblock-notify/releases). Install it using:
+[releases section](https://github.com/sakoula/tcpblock-notify/releases).
+
+Make sure that you have installed terminal-notifer and you have located the binary. Based on the method you have used to install terminal-notifier (brew, gem or released) the location of the binary may differ. Examples include:
++ `/Applications/terminal-notifier.app/Contents/MacOS/terminal-notifier`
++ `/usr/local/bin/terminal-notifier`
+
+Install it using:
 ```
-$ unzip tcpblock-notify-0.1.zip
-$ cd tcpblock-notify-0.1
-$ ./install-tcpblock-notify.sh
+$ unzip tcpblock-notify-0.2.zip
+$ cd tcpblock-notify-0.2
+$ ./install-tcpblock-notify.sh "/Applications/terminal-notifier.app/Contents/MacOS/terminal-notifier"
 
 copying binary to /home/psebos/.tcpblock-notify ...done
 automating startup ...done
@@ -47,11 +62,14 @@ sakoula
 Download from the
 [releases section](https://github.com/sakoula/tcpblock-notify/releases). Install it using:
 ```
-$ unzip tcpblock-notify-0.1.zip
-$ cd tcpblock-notify-0.1
+$ terminalnotifier="LOCATION OF THE TERMINAL NOTIFIER BINARY"
+
+$ unzip tcpblock-notify-0.2.zip
+$ cd tcpblock-notify-0.2
 
 # copying binary to ${HOME}/.tcpblock-notify ..
 $ mkdir -p ${HOME}/.tcpblock-notify
+$ cat tcpblock-notify.sh | sed "s#/usr/local/bin/terminal-notifier#\"${terminalnotifier}\"#" > ${HOME}/.tcpblock-notify/tcpblock-notify.sh
 $ cp tcpblock-notify.sh ${HOME}/.tcpblock-notify
 $ chmod 755 ${HOME}/.tcpblock-notify/tcpblock-notify.sh
 
@@ -71,8 +89,8 @@ launchctl load ${HOME}/Library/LaunchAgents/com.sakoula.tcpblock-notify.plist
 
 If used the installer for installation use the uninstaller which is included inside the installation package [releases section](https://github.com/sakoula/tcpblock-notify/releases):
 ```
-$ unzip tcpblock-notify-0.1.zip
-$ cd tcpblock-notify-0.1
+$ unzip tcpblock-notify-0.2.zip
+$ cd tcpblock-notify-0.2
 
 $ ./uninstall-tcpblock-notify.sh
 ```
@@ -124,6 +142,17 @@ The code is very simple. It continuously monitors the syslog (/var/log/system.lo
 ```
 $ sudo tcpblock -a application_name
 ```
+
+## Troubleshooting
+
+Make sure that terminal-notifier works. Locate the binary and run from the command line
+```
+$"/Applications/terminal-notifier.app/Contents/MacOS/terminal-notifier" -message "This is a test"
+or
+$"/usr/local/bin/terminal-notifier" -message "This is a test"
+depending on the terminal-notifier binary
+```
+
 
 ## License
 
